@@ -315,8 +315,58 @@ Spread & Rest Operators
 
 1. ... / Permite copiar las propiedades de un OBJ.
 2. ... / Permite copiar los elementos de un Array.
-3. ... / Ideal para concatenar arrays => array3 = [...array1, ...array2]
+3. ... / Ideal para concatenar arrays => array3 = [...array1, ...array2].
 4. ... / Permite agrupar todas variables ingresadas en una función dentro
-de un arreglo (sea cual sea).
+de un arreglo (sea cual sea). Ej: function sumar(...numeros) { return 
+numeros.reduce((a, b) => a + b); }.
+
+
+___________________________________________________________________________
+
+
+Default Assignments
+
+Dentro del código es frecuente el empleo de funciones que requieren la 
+asignación de valores por default. Esta asignación permite que la función 
+realice su tarea, reciba o no el argumento requerido, o en cualquier caso, 
+que utilice esa asignación como valor por defecto hasta que el valor sea 
+recibido o modificado. Veamos un ejemplo sencillo. 
+
+Ej:
+
+function saludar(nombre = 'Invitado'){
+    console.log(`Hola, ${nombre}`);
+};
+
+En este ejemplo podemos observar como la función saludar recibe un parámetro
+nombre.
+
+¿Cómo funciona la asignación 'igual'?
+
+En este caso, cuando ejecutamos la función sin pasarle un parámetro, éste 
+toma por defecto el valor igualado ('Invitado'). En el caso de si pasarle un 
+parámetro, este será el valor a utilizar.
+
+
+Nullish Coalescing 
+
+El Nullish Coalescing Operator, representado como (??), nos permite agregar 
+un valor por defecto a una variable si su valor actual es nulo o es indefinido. 
+Veamos un ejemplo de uso y cómo nos ayuda este operador a mejorar la legibilidad 
+del código al asignar valores predeterminados:
+
+let valor1 = null;
+let valor2 = 'Texto';
+let resultado = valor1 ?? valor2;
+console.log(resultado);
+
+En este ejemplo podemos ver cómo, entre dos valores de los cuales uno es nulo, este
+operador asigna por defecto el valor al cuál, luego de una coerción de datos, sea 
+true. Es decir, el string. Cuando comparemos dos valores falsos, permanecerá el 
+segundo. Pero cuando ambos sean verdaderos, permanecerá el primero. Veamos esto en 
+una actividad.
+
+
+
 
 
