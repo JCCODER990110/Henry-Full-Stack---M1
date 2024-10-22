@@ -311,5 +311,12 @@ ___________________________________________________________________________
 
 Spread & Rest Operators
 
+... (Conotación en JavaScript)
+
+1. ... / Permite copiar las propiedades de un OBJ.
+2. ... / Permite copiar los elementos de un Array.
+3. ... / Ideal para concatenar arrays => array3 = [...array1, ...array2]
+4. ... / Permite agrupar todas variables ingresadas en una función dentro
+de un arreglo (sea cual sea).
 
 
