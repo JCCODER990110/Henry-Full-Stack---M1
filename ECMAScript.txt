@@ -1,0 +1,315 @@
+
+ECMAScript:
+
+
+Temas:
+
+1. Let & Const
+2. Object Literals
+3. Template Literals
+4. Desctructuring
+5. Spread & Rest Operators
+6. Default Assignments
+7. ChatGPT
+
+
+___________________________________________________________________________
+
+Lets & Const
+
+
+LET: variable declarada con Let es una variable que me dejará asignar 
+y modificar su valor Ej:
+
+let a = 5;
+a = 15;
+let b = 8;
+let suma = a + b;
+console.log(suma);
+
+a = [1, 2, 3];
+
+Hasta el momento que la variable es declarada con Var. Let permite declarar
+con alcance limitado al bloque de código en el cual se definen, en lugar 
+del alcance completo como var. 
+
+CONST: al declarar una variable con const se afirma que es una variable
+a la cual no podemos cambiar su valor. Pero si podemos realizar opera-
+ciones con variables declaradas con const.  Permite además declarar
+con alcance limitado al bloque de código en el cual se definen (igual que
+las variables let). 
+
+Ojo! No es una constante como generalmente consideramos en nuestros len-
+guajes de programación habituales, pero para fines prácticos, si se
+comportan como una constante. 
+
+Tener en cuenta! No se puede re declarar con Let una variable con previa-
+mente declarada. 
+
+
+¿Qué es el scope de una variable?
+
+El  scope  hace referencia a la región del código donde se definen las 
+variables y, por lo tanto, donde pueden ser accedidas.
+
+Existen dos tipos de scopes...
+
+Scope Global:
+Cuando una variable se declara fuera de cualquier función o bloque de 
+código, se convierte en una variable global y está disponible a lo largo 
+de todo el programa. Ejemplo:
+
+var globalVariable = "Soy Global";
+function ejemplo(){
+    console.log(globalVariable);
+};
+
+Scope Local:
+Cuando una variable se declara dentro de una función o un bloque de 
+código se considera como una variable local y solo es accesible dentro de 
+esa función o bloque. Esto ayuda a encapsular variables y evitar conflictos.
+Ejemplo:
+
+function ejemplo(){
+    var localVariable = "Soy Local";
+    console.log(localVariable);
+};
+
+
+Con let y const, también se introdujo el block scope (alcance de bloque).
+Este tipo de scope permite declarar variables con alcance dentro de bloques 
+de código, y no solo de funciones. Es decir, también se aceptan en condi-
+cionales, bucles, etc.
+
+Hoisting:
+Comencemos por entender qué es el Hoisting. Este término se refiere a un 
+comportamiento en JavaScript donde las declaraciones de las variables y 
+funciones son "movidas" al inicio de su contexto de ejecución durante la 
+fase de compilación, antes de que el código se ejecute. Esto significa que
+conceptualmente, las variables y funciones son "elevadas" (hoisted) a la
+ parte superior de su ámbito (scope), lo que puede afectar la forma en que 
+ el código se ejecuta.
+
+En este ejemplo podemos ver que al declarar una variable con var, y al 
+intentar acceder a ella antes de ser declarada, el código imprime "undefined"
+esto se debe a que, a la hora de ejecutar el código, esa declaración se mueve
+al inicio del código. Por lo que, la variable ya existe (aunque no tenga su 
+valor asignado aún).
+
+Ejemplo:
+
+console.log(x); // undefined
+var x = 5;
+console.log(x); // 5
+
+Por lo contrario, si utilizamos let o const para declarar una variable 
+(constante) este proceso ya no funciona igual que antes. Es decir, la 
+declaración de la variable se hoisteará, pero no se inicializará, ya que 
+esto solo sucede con var.
+
+Ejemplo:
+
+console.log(x); // Error -> Cannot access 'x' before initialization
+const x = 5;
+console.log(x); // 5
+
+___________________________________________________________________________
+
+
+Object Literals
+
+
+Otra de las grandes adiciones que trajo ECMAScript 6 a JavaScript fueron los 
+Object Literals que nacieron como una forma más concisa de definir objetos 
+mediante una sintaxis simplificada. Esta implementación ha sido tan importante 
+que incluso la mayoría de personas que aprendieron este lenguaje no saben que 
+existía otra forma de crear objetos. Veamos el antes y después de ES6:
+
+Antes: 
+
+Esta era la forma antigua en la que se creaban objetos. Teníamos que acceder 
+al objeto Object, y crear uno con la palabra reservada new.
+
+var obj = new Object();
+obj.propiedad = "Valor";
+
+Ahora: 
+
+Por otro lado, hoy en día, luego de la actualización de ECMAScript 6, tenemos
+la posibilidad de crear objetos con sus pares clave-valor dentro de llaves.
+
+let obj = {
+    propiedad: "Valor",
+}
+
+Ahora, otra ventaja. Si tenemos unas variables declaradas dentro del bloque 
+podemos introducir esas variables dentro de un objeto sin tener que escribir
+tanto, simplemente definimos el objeto y colocamos el nombre de la variable
+el sistema por defecto entiende que el nombre de la varible es la propiedad
+y que su contenido es el valor; Esto es muy útiles con las funciones, Ejemplo:
+
+function Fn (nombre, apellido, ciudad){
+    const persona = {
+        nombre,
+        apellido, 
+        ciudad, 
+    };
+
+    // Obvio de realizará algo más en el cuerpo de la función, pero por fines
+    //prácticos tomaremos así la estructura
+
+    return persona, 
+}
+
+Console.log(Fn('Jonás', 'Coronado', 'Barranquilla'));
+
+// {Nombre: 'Jonás', apellido: 'Coronado', ciudad: 'Barranquilla'}
+
+Esto nos ayuda a ahorrar líneas de código.
+
+Propiedad Dinámica:
+
+Las propiedades dinámicas son una nueva adhesión que nos pueden permitir
+generar propiedades de forma dinámicas dependiendo del contexto. Veamos 
+esto en mayor profundidad. Ejemplo:
+
+Const griffindor = {
+
+    casa: "Griffindor",
+    ubicación: "Torre del Castillo", 
+
+    asignarPropDinamica(clave, valor){
+        this[clave] = valor;
+    },
+
+},
+
+En este ejemplo contamos con un objeto llamado griffindor. Este objeto 
+tiene dos propiedades (casa y ubicación), y además tiene un método
+(asignarPropDinamica).
+
+Este método, permite, es agregar de forma dinámica una nueva propiedad en 
+el objeto.
+
+griffindor.asignarPropDinamica("Alumno", "Harry Potter");
+
+Obtendremos:
+
+{
+    casa: "Griffindor",
+    ubicación: "Torre del Castillo", 
+    asignarPropDinamica: [function: asignarPropDinamica],
+    alumno: 'Harry Potter',
+}
+
+Es decir, si nosotros ejecutamos este método, veremos como automáticamente 
+el objeto contará con una nueva propiedad y su valor.
+
+
+___________________________________________________________________________
+
+
+Template Literals
+
+Otro gran ejemplo de una feature incorporada en ES6 que nos ayuda a simpli-
+ficar la forma de escribir código son nada más y nada menos que los Template
+Literals también conocidos como Template Strings. Son una forma limpia y
+expresiva de crear strings dentro de los cuales es posible insertar expre-
+siones de código directamente para concatenar su valor.
+
+Ejemplo:
+
+function templateLiterals(nombre, alias){
+    console.log(`Este es: ${Jonás} mejor conocido como ${Crack}`);
+}
+
+función (templateString), podemos ver que esos parámetros ya no se adhieren 
+al string mediante el operador (+). Por lo contrario, se insertan directa-
+mente dentro del string. ¿Cómo funciona esto?
+
+1. Para crear un template string, primero, es necesario utilizar los back
+sticks (``). De la misma manera que existen las comillas simples (' ') y 
+las dobles (" "), existen estas nuevas comillas.
+
+2. Por otro lado, para insertar un elemento dentro de un string, necesitarás
+hacerlo dentro de un signo de dinero y llaves (${ }). De esta forma el string
+sabrá que este es un valor que estamos adhiriendo.
+
+¡¡¡ Puedes generar los backsticks presionando alt + 96.
+
+Ejemplo:
+
+Const saludo = "Hola"; 
+Const nombre = "Jonás";
+
+Función CreaMsn(saludo, nombre){
+    console.log(`${saludo}, ${nombre}`);
+};
+
+¿Qué es el Scape Sequence?
+
+Una secuencia de escape es una combinación de caracteres que representa un
+carácter especial en un string, como un salto de línea o un tabulador, y
+comienza con una barra invertida (\). Por ejemplo, '\n' representa un salto
+de línea y '\t' un tabulador, permitiendo incluir estos caracteres especiales
+en los textos de manera sencilla.
+
+Ejemplo:
+
+function imprimirMsn(){
+    console.log("Mensaje:\n Aquí hubo un salto de línea");
+};
+
+Existen más de estas scape Sequence; puedes buscar más si necesitas:
+https://learn.microsoft.com/es-es/cpp/c-language/escape-sequences?view=msvc-170
+o apoyate con chatgpt
+
+
+___________________________________________________________________________
+
+
+Destructuring
+
+
+Otra característica sumamente importante incorporada en ES6 fue el
+destructuring. Pensemos que, cuando recibimos un objeto, todas las propiedades
+las encontraremos dentro de él. Pues, el destructuring nos permitirá
+"desempaquetar" o "extraer" todas esas propiedades para así poder acceder a
+ellas de manera más sencilla.
+
+Ejemplo:
+
+function MostrarNombre(persona){
+    const {nombre, apellido} = persona;
+    console.log(`Nombre: ${nombre} ${apellido}}`);
+};
+
+const persona = {
+    nombre: "Jonas",
+    apellido: "Coronado",
+    ciudad: "Barranquilla", 
+    pais: "Colombia", 
+    edad: "25",
+};
+
+console.log(MostrarNombre(persona));
+
+// Nombre: Jonás Coronado
+
+con arrays es lo mismo, lo unico es que debemos tener total certeza de que hay
+en cada uno de los elementos del Array; Ejemplo:
+
+const miArray = [1, 2, 3, 4];
+const [num1, num2, num3, num4] = miArray;
+
+Ojo; También podemos desestructurar directamente desde los parámetros de una
+función. 
+
+
+___________________________________________________________________________
+
+
+Spread & Rest Operators
+
+
+
