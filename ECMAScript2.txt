@@ -1,0 +1,51 @@
+
+Arrows Functions
+
+
+¿Qué es una función flecha?
+
+Las Arrow functions son una manera de escribir funciones, pero 
+con una sintaxis simplificada. Si bien estas actúan como cualquier 
+función, veremos que tienen algunos comportamientos específicos 
+respecto al manejo del contexto con this, diferente al de las 
+funciones tradicionales.
+
+
+Functions Vs Arrow Functions
+
+Las funciones flechas dan facilidad para trabajar funciones callbacks
+
+Ej: 
+
+const sumar = (a, b) => a + b; // Forma de definir función flecha en 
+una línea. 
+
+Ej: 
+
+const arrayNum = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+// Definiendo con FUNCTION
+const pares = arrayNum.filter(function(num){
+    return num % 2 == 0;
+});
+
+// Definiendo con Arrow Function
+const pares = arrayNum.filter((num) => num % 2 == 0);
+
+console.log(pares); [2, 4, 6, 8, 10]
+
+Cuando queremos retornar un elemento y esto solo lleva una línea de 
+código, podremos obviar el uso de la palabra return.
+
+
+CONTEXTO
+
+
+Cuando trabajamos con funciones tradicionales, la palabra reservada 
+this se encuentra determinada por el contexto de la función que la 
+contiene. Sin embargo, este comportamiento no es igual en las arrow 
+functions, ya que, en este caso, la referencia de this se hereda del 
+contexto léxico. Es decir, la referencia se toma del ámbito que 
+contiene a la arrow function en el momento de su definición y no 
+dentro de la función como tal.
+
