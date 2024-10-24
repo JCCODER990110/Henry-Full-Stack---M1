@@ -40,7 +40,6 @@ código, podremos obviar el uso de la palabra return.
 
 CONTEXTO
 
-
 Cuando trabajamos con funciones tradicionales, la palabra reservada 
 this se encuentra determinada por el contexto de la función que la 
 contiene. Sin embargo, este comportamiento no es igual en las arrow 
@@ -48,4 +47,184 @@ functions, ya que, en este caso, la referencia de this se hereda del
 contexto léxico. Es decir, la referencia se toma del ámbito que 
 contiene a la arrow function en el momento de su definición y no 
 dentro de la función como tal.
+
+Es decir, no se usa this con las arrow functions!!!!!
+
+_______________________________________________________________________________
+
+
+Clases
+
+
+Ya vimos entonces cómo el uso adecuado de las arrow functions puede 
+ayudarnos a optimizar la lectura de nuestro código. Ahora nos adentraremos
+en la programación orientada a objetos y en el uso recomendado de las 
+clases.
+
+
+¿De dónde vienen las clases?
+
+En un comienzo las clases comenzaron con el desarrollo de la programación 
+orientada a objetos (POO). La POO fue una revolución en la forma de pensar
+y estructurar los programas, introduciendo el concepto de "objetos" como 
+entidades que contienen tanto datos como funciones. Las "clases" son 
+esencialmente plantillas para crear estos objetos, definiendo sus atributos
+y comportamientos. Originalmente, lenguajes como Smalltalk y C++ populari-
+zaron el uso de clases y la POO en la década de 1980.
+
+JavaScript inicialmente no adoptó el concepto de clases. Esto se debió a su 
+enfoque en la programación funcional y de scripting. Sin embargo, con el 
+paso del tiempo y la evolución de las necesidades de desarrollo web, 
+JavaScript comenzó a adoptar características de POO. Finalmente con la 
+introducción de ES6, las clases se incorporaron oficialmente a JavaScript
+permitiendo una sintaxis más clara y familiar para los programadores 
+acostumbrados a la POO.
+
+
+¿Qué es una clase?
+
+En términos generales, podemos definir a una clase como una plantilla que se 
+utiliza para la creación de objetos definidos a partir de una misma estructura 
+base. Los objetos que provienen de dicha plantilla se conocen como instancias 
+de clase (objetos). Veamos un ejemplo para entender esto mejor:
+
+Cada clase es una abstracción que define un conjunto de atributos y métodos 
+que la componen. Por ejemplo, en el mundo real podemos encontrar distintos 
+tipos de autos, como un Audi, o un Volvo. Pero al fin y al cabo todos pueden 
+ser la abstracción de un mismo objeto: un auto.
+
+De esta forma entendemos que, en programación, con una clase podremos crear 
+esta "plantilla" de un objeto, y luego crear instancias de esta todas las veces 
+que queramos. Estas instancias tendrán diferentes características, como color
+marca, puertas, ruedas, motor, etc.
+
+
+Encapsulamiento
+
+Imagina que tienes una cuenta bancaria en la que guardas dinero. Solo puedes 
+acceder a ella mediante tus credenciales (contraseña). De esta forma puedes 
+mantener tu dinero seguro. Esta cuenta es un sistema (clase) que ofrece algunos 
+métodos, como por ejemplo, depositar o retirar información, pero en la cual no 
+conoceremos el funcionamiento o los detalles internos.
+
+El  encapsulamiento  en es el principio de ocultar los detalles internos de la 
+implementación de un objeto, exponiendo solo las interfaces necesarias para 
+interactuar con él. Esto asegura la integridad de los datos y la seguridad de 
+la implementación.
+
+class cajafuerte{
+    constructor(){
+        this._dinero = 0; // Detalle interno oculto
+    };
+
+    depositar(cantidad){this._dinero += cantidad};
+
+    retirar(cantidad){
+        if (cantidad <= this.dinero){
+            this.dinero += cantidad;
+            return cantidad;
+        };
+        return 0;
+    };
+}
+
+
+Herencia
+
+Imagina una familia en la que los hijos heredan ciertas características de 
+sus padres, como el color de ojos o el tipo de cabello. De manera similar, 
+en programación, la herencia permite que una clase (hijo) adopte propiedades
+y métodos de otra clase (padre). Por ejemplo, si tenemos una clase Padre que
+sabe caminar y una clase Hijo que hereda de Padre, Hijo también sabrá caminar 
+sin necesidad de redefinir ese comportamiento. 
+
+La  herencia  es un principio que le permite a una clase derivar propiedades 
+y métodos de otra clase, promoviendo la reutilización de código y la jerarquía
+en la estructuración de clases. 
+
+class Padre {
+    caminar(){
+        console.log("Caminando...");
+    };
+};
+
+class Hijo extends Padre {
+    // Hijo hereda la capacidad de caminar de Padre
+};
+
+let Hijo = new Hijo();
+Hijo.caminar(); // Muestra: "Caminando..."
+
+
+Polimorfismo
+
+Piensa en un control remoto universal que puede interactuar con diferentes 
+dispositivos (TV, radio, etc.). Aunque el método de interacción (botones) es
+el mismo, la forma en que cada dispositivo responde es diferente. 
+En programación, el polimorfismo permite que métodos con el mismo nombre 
+actúen de manera diferente en distintos objetos. Por ejemplo, una función
+dibujar podría comportarse de manera diferente si se aplica a un círculo o a 
+un cuadrado.
+
+Polimorfismo  es la capacidad que permite que objetos de diferentes clases 
+respondan a métodos con el mismo nombre, cada uno según su propia implemen-
+tación.
+
+class Forma {
+    dibujar(){
+        console.log("Dibujando Genérico");
+    };
+};
+
+class Circulo extends Forma {
+    dibujar(){
+        console.log("Dibujando Círculo");
+    };
+};
+
+class Cuadrado extends Forma {
+    dibujar(){
+        console.log("Dibujando Cuadrado");
+    };
+};
+
+
+Abstracción
+
+Considera un bicicleta. No necesitas entender la complejidad de sus 
+engranajes; solo utilizas el volante y los pedales. De forma similar, la 
+abstracción es el proceso de ocultar los detalles complejos y mostrar solo lo 
+necesario. Por ejemplo, en una clase Coche, puedes tener métodos como encender
+acelerar y frenar, sin necesidad de mostrar cómo se implementan internamente 
+estos procesos. 
+
+La  abstracción  es el proceso de ocultar los detalles complejos de la imple-
+mentación y exponer solo las características esenciales y las funcionalidades 
+de un objeto.
+
+
+class Coche {
+
+    constructor(){
+        this._motorEncendido = false; // Propiedad Privada
+    };
+
+    _encenderMotor(){
+        // Método Privado: Detalle interno sobre cómo se enciende el motor
+        this.motorEncendido = true;
+        console.log("Motor Encendido");
+    };
+
+    _apagarMotor(){
+        // Método Privado: Detalle interno sobre cómo se apaga el motor
+        this.motorEncendido = false;
+        console.log("Motor Apagado");
+    };
+
+};
+
+_______________________________________________________________________________
+
+
+Clase CONSTRUCTOR y Prototipos
 
